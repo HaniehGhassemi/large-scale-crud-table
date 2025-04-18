@@ -1,0 +1,21 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem;
+    border: 0.1rem solid var(--color-border-primary);
+    border-radius: 0.6rem;
+
+    .input {
+      flex: 1;
+      border: unset;
+      outline: none;
+    }
+  }
+}
