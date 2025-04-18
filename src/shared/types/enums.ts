@@ -16,6 +16,7 @@ export enum AccentColors {
   Secondary = 'Secondary',
   Tertiary = 'Tertiary',
   Error = 'Error',
+  Disabled = 'Disabled',
 }
 
 export enum FontSize {

@@ -12,6 +12,7 @@ interface InputProps {
   label?: string;
   error?: string | string[];
   icon?: ReactNode;
+  className?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -22,9 +23,10 @@ const Input: React.FC<InputProps> = ({
   label,
   error,
   icon,
+  className,
 }) => {
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className}`}>
       {label && <Label label={label} />}
       <div className={`${styles.field} ${error && styles.error}`}>
         <input

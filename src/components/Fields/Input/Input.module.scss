@@ -18,4 +18,8 @@
       outline: none;
     }
   }
+
+  .error {
+    border-color: var(--color-border-error);
+  }
 }

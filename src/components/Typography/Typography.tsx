@@ -34,6 +34,7 @@ const Typography: React.FC<TypographyProps> = ({
           ? styles[`${color.toLowerCase()}`]
           : styles[`${AccentColors.Primary}`]
       }`}
+      style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
       {text}
     </span>
@@ -44,6 +45,7 @@ const Typography: React.FC<TypographyProps> = ({
           ? styles[`${color.toLowerCase()}`]
           : styles[`${AccentColors.Primary}`]
       }`}
+      style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
       {text}
     </h1>
@@ -54,6 +56,7 @@ const Typography: React.FC<TypographyProps> = ({
           ? styles[`${color.toLowerCase()}`]
           : styles[`${AccentColors.Primary}`]
       }`}
+      style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
       {text}
     </h2>
