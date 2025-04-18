@@ -1,11 +1,10 @@
-import { SortOrder } from '@/shared/types/enums';
-import { ActionButton } from '@/shared/types/types';
+import { ActionButton, Sort } from '@/shared/types/types';
 import { ReactNode } from 'react';
 
 export interface Column {
   label: string;
   size: string;
-  sort?: (order: SortOrder) => void;
+  sortable?: boolean;
 }
 
 export interface Cell {
@@ -39,4 +38,6 @@ export interface TableProps {
     body: ReactNode;
     onOpen: (open: boolean) => void;
   };
+
+  onSortChange?: (sort?: Sort) => void;
 }

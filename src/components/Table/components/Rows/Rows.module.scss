@@ -25,12 +25,6 @@
       align-items: center;
     }
 
-    .countable {
-      width: 5%;
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
-
     .cell {
       max-width: 100%;
       overflow: hidden;
@@ -52,6 +46,10 @@
         .label {
           font-size: 1.2rem;
           color: var(--color-text-disabled);
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
         }
 
         .value {

@@ -21,7 +21,7 @@ import { Column, Row } from './components/Table/Table.types';
 import Typography from './components/Typography/Typography';
 import ProductsFilters from './filters/ProductsFilters/ProductsFilters';
 import { ProductFilterItems } from './filters/ProductsFilters/ProductsFilters.types';
-import { ActionButton } from './shared/types/types';
+import { ActionButton, Sort } from './shared/types/types';
 import CreateNewProduct from './forms/CreateNewProduct/CreateNewProduct';
 import UpdateProduct from './forms/UpdateProduct/UpdateProduct';
 import DeleteProduct from './forms/DeleteProduct/DeleteProduct';
@@ -40,6 +40,7 @@ function App() {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const [product, setProduct] = useState<Product>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+  const [sort, setSort] = useState<Sort>();
 
   const getAllProducts = useCallback(async () => {
     const { data, error } = await fetchGetAllProducts({
@@ -51,12 +52,14 @@ function App() {
       startDate: appliedFilters?.startDate,
       endDate: appliedFilters?.endDate,
       category: appliedFilters?.category,
+      sortBy: sort?.sortBy,
+      sortOrder: sort?.sortOrder,
     });
 
     if (!data || error) return;
 
     setProducts(data);
-  }, [page, pageSize, searchQuery, appliedFilters]);
+  }, [page, pageSize, searchQuery, appliedFilters, sort]);
 
   useEffect(() => {
     getAllProducts();
@@ -64,28 +67,39 @@ function App() {
 
   const column: Column[] = [
     {
+      label: 'id',
+      size: '8%',
+      sortable: true,
+    },
+    {
       label: 'title',
       size: '30%',
+      sortable: true,
     },
     {
       label: 'category',
-      size: '14%',
+      size: '12%',
+      sortable: true,
     },
     {
       label: 'price',
       size: '10%',
+      sortable: true,
     },
     {
       label: 'stock',
-      size: '12%',
+      size: '10%',
+      sortable: true,
     },
     {
       label: 'rating',
-      size: '12%',
+      size: '10%',
+      sortable: true,
     },
     {
       label: 'date',
-      size: '12%',
+      size: '10%',
+      sortable: true,
     },
     {
       label: 'actions',
@@ -97,6 +111,9 @@ function App() {
     ? products.data.map((item) => ({
         id: item.id,
         cells: [
+          {
+            value: item.id,
+          },
           {
             value: item.title,
           },
@@ -170,6 +187,10 @@ function App() {
     onClick: () => setIsCreateModalOpen(true),
   };
 
+  useEffect(() => {
+    console.log(sort);
+  }, [sort]);
+
   return (
     <div className={styles.container}>
       <Table
@@ -191,6 +212,7 @@ function App() {
             />
           ),
         }}
+        onSortChange={setSort}
         action={tableControlAction}
         pagination={{
           total: products?.meta.total || 0,

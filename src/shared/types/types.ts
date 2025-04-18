@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { AccentColors } from './enums';
+import { AccentColors, SortOrder } from './enums';
 
 export interface Meta {
   page: number;
@@ -24,4 +24,9 @@ export interface ActionButton {
 export interface SelectOption {
   value: string | number;
   title: string;
+}
+
+export interface Sort {
+  sortBy: string;
+  sortOrder: SortOrder;
 }

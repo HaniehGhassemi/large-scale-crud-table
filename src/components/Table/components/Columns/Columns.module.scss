@@ -11,17 +11,15 @@
     box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.1);
     z-index: 1;
 
-    .countable {
-      width: 5%;
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
-
     .label {
       width: 100%;
       font-size: 1.4rem;
       font-weight: 600;
       color: var(--color-text-primary);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
     }
   }
 }
