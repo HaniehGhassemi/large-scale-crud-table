@@ -8,6 +8,7 @@ import Filter from '@/assets/icons/Filter';
 import styles from './Table.module.scss';
 import Pagination from './components/Pagination/Pagination';
 import Modal from '../Modal/Modal';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Table: React.FC<TableProps> = ({
   search,
@@ -47,6 +48,8 @@ const Table: React.FC<TableProps> = ({
               color={action.color}
             />
           )}
+
+          <ThemeToggle />
         </div>
       )}
       <div className={styles.table}>

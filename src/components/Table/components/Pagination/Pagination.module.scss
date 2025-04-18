@@ -21,11 +21,12 @@
     .select {
       max-width: fit-content;
       padding: 0.4rem;
-      gap: 0.4rem;
       border-radius: 0.4rem;
       border-color: var(--color-border-primary);
       outline: none;
       font-size: 1.2rem;
+      background-color: var(--tertiary);
+      color: var(--color-text-primary);
     }
   }
 
@@ -44,11 +45,12 @@
     .select {
       max-width: fit-content;
       padding: 0.4rem;
-      gap: 0.4rem;
       border-radius: 0.4rem;
       border-color: var(--color-border-primary);
       outline: none;
       font-size: 1.2rem;
+      background-color: var(--tertiary);
+      color: var(--color-text-primary);
     }
   }
 }

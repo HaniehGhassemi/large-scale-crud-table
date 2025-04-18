@@ -21,17 +21,45 @@
   --color-button-disabled: #d9d9d9;
 
   --font-primary: googleFont, arial, verdana, tahoma, sans-serif;
+
+  body {
+    background-image: linear-gradient(to right, #66bae8, #f2fcfe);
+  }
+}
+
+:root.dark {
+  --primary: #121212;
+  --secondary: #1e1e1e;
+  --tertiary: #2a2a2a;
+
+  // Text
+  --color-text-primary: #fff;
+  --color-text-secondary: #000;
+  --color-text-tertiary: #4d8dff;
+  --color-text-error: #ff5f6d;
+  --color-text-disabled: #999999;
+
+  // Border Colors
+  --color-border-primary: #444444;
+  --color-border-disabled: #666666;
+  --color-border-error: #ff5f6d;
+
+  // Button Colors
+  --color-button-primary: #4d8dff;
+  --color-button-tertiary: #ff5f6d;
+  --color-button-disabled: #444444;
+
+  --font-primary: googleFont, arial, verdana, tahoma, sans-serif;
+
+  body {
+    background-image: linear-gradient(to right, #3a4e8c, #1a2c38);
+  }
 }
 
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
-}
-
-body {
-  background-image: linear-gradient(to right, #66bae8, #f2fcfe);
-  font-family: var(--font-primary);
 }
 
 * {
@@ -66,4 +94,11 @@ html {
   width: 100%;
   padding: 0.8rem !important;
   min-height: 3.7rem !important;
+  background-color: transparent !important;
+  color: var(--color-text-primary) !important;
+  border: 0.1rem solid var(--color-border-primary) !important;
+}
+
+.icon {
+  color: var(--color-text-primary) !important;
 }

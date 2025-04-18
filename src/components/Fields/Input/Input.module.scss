@@ -16,6 +16,12 @@
       flex: 1;
       border: unset;
       outline: none;
+      background-color: transparent;
+      color: var(--color-text-primary);
+    }
+
+    svg {
+      color: var(--color-text-primary);
     }
   }
 

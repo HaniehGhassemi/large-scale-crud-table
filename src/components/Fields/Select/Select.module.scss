@@ -70,12 +70,13 @@
 
 .option {
   padding: 1.2rem 1.6rem;
-  text-align: right;
+  text-align: left;
   cursor: pointer;
   font-size: 1.4rem;
   font-weight: 600;
   border-radius: 0.8rem;
   background-color: var(--tertiary);
+  color: var(--color-text-primary);
 
   &:hover {
     opacity: 0.8;
