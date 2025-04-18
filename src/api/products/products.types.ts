@@ -26,3 +26,12 @@ export interface GetAllProductsResponse {
   data: Product[];
   meta: Meta;
 }
+
+export interface CreateNewProductsRequestBody {
+  title: string;
+  category: string;
+  price: number;
+  description: string;
+  stock: number;
+  rating: number;
+}

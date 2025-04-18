@@ -1,6 +1,6 @@
 import { GetAllProductsResponse } from './api/products/products.types';
 import { fetchGetAllProducts } from './api/products/products';
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Table from './components/Table/Table';
 import styles from './index.module.scss';
 import { convertDate } from './shared/utils/dateUtils';
@@ -14,6 +14,7 @@ import Typography from './components/Typography/Typography';
 import ProductsFilters from './filters/ProductsFilters/ProductsFilters';
 import { ProductFilterItems } from './filters/ProductsFilters/ProductsFilters.types';
 import { ActionButton } from './shared/types/types';
+import CreateNewProduct from './forms/CreateNewProduct/CreateNewProduct';
 
 function App() {
   const [products, setProducts] = useState<GetAllProductsResponse>();
@@ -27,26 +28,26 @@ function App() {
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    const getAllProducts = async () => {
-      const { data, error } = await fetchGetAllProducts({
-        page: page,
-        pageSize: pageSize,
-        search: searchQuery,
-        minPrice: appliedFilters?.minPrice,
-        maxPrice: appliedFilters?.maxPrice,
-        startDate: appliedFilters?.startDate,
-        endDate: appliedFilters?.endDate,
-        category: appliedFilters?.category,
-      });
+  const getAllProducts = useCallback(async () => {
+    const { data, error } = await fetchGetAllProducts({
+      page: page,
+      pageSize: pageSize,
+      search: searchQuery,
+      minPrice: appliedFilters?.minPrice,
+      maxPrice: appliedFilters?.maxPrice,
+      startDate: appliedFilters?.startDate,
+      endDate: appliedFilters?.endDate,
+      category: appliedFilters?.category,
+    });
 
-      if (!data || error) return;
+    if (!data || error) return;
 
-      setProducts(data);
-    };
-
-    getAllProducts();
+    setProducts(data);
   }, [page, pageSize, searchQuery, appliedFilters]);
+
+  useEffect(() => {
+    getAllProducts();
+  }, [getAllProducts]);
 
   const column: Column[] = [
     {
@@ -163,6 +164,20 @@ function App() {
         title={productTitle}
         body={<Typography variant={Variant.P} text={productDescription} />}
         onClose={() => setIsOpen(false)}
+      />
+
+      <Modal
+        isOpen={isCreateModalOpen}
+        title={'Create new product'}
+        body={
+          <CreateNewProduct
+            submit={() => {
+              getAllProducts();
+              setIsCreateModalOpen(false);
+            }}
+          />
+        }
+        onClose={() => setIsCreateModalOpen(false)}
       />
     </div>
   );

@@ -8,6 +8,9 @@ const CONSTANTS = {
     PRODUCTS: 'products',
     CATEGORIES: 'categories',
   },
+  REGEX: {
+    TITLE: /^[A-Za-z\s]+$/,
+  },
 };
 
 export default Object.freeze(CONSTANTS);

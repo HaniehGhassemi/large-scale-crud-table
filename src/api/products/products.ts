@@ -1,5 +1,6 @@
 import { ApiResponse, fetchData } from '../useFetch';
 import {
+  CreateNewProductsRequestBody,
   GetAllProductsQueryParams,
   GetAllProductsResponse,
 } from './products.types';
@@ -14,5 +15,14 @@ export const fetchGetAllProducts = async (
 ): Promise<ApiResponse<GetAllProductsResponse>> => {
   return await fetchData(`${PRODUCTS}/all?${getProperQueryString(query)}`, {
     method: ApiMethod.Get,
+  });
+};
+
+export const fetchCreateNewProducts = async (
+  body: CreateNewProductsRequestBody,
+): Promise<ApiResponse<GetAllProductsResponse>> => {
+  return await fetchData(`${PRODUCTS}/create`, {
+    method: ApiMethod.Post,
+    body: JSON.stringify(body),
   });
 };

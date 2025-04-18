@@ -13,6 +13,7 @@ interface TextareaProps {
   cols?: number;
   require?: boolean;
   error?: string | string[];
+  className?: string;
 }
 
 const Textarea: React.FC<TextareaProps> = ({
@@ -23,6 +24,7 @@ const Textarea: React.FC<TextareaProps> = ({
   cols = 50,
   label,
   error,
+  className,
 }) => {
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     if (onChange) {
@@ -31,7 +33,7 @@ const Textarea: React.FC<TextareaProps> = ({
   };
 
   return (
-    <div className={styles.fields}>
+    <div className={`${styles.fields} ${className}`}>
       {label && <Label label={label} />}
       <textarea
         id="textarea"

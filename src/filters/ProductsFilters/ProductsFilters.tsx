@@ -36,7 +36,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
 
       if (!data || error) return;
 
-      const options = data.data.map((category) => ({
+      const options: SelectOption[] = data.data.map((category) => ({
         title: category.title,
         value: category.title,
       }));
@@ -73,7 +73,7 @@ const ProductsFilters: React.FC<ProductsFiltersProps> = ({
 
     onAppliedFilters(cleanedFilters);
     submit();
-  }, [filters, onAppliedFilters]);
+  }, [filters, onAppliedFilters, submit]);
 
   const handleClear = () => {
     const clearedFilters = {
