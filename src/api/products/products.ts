@@ -3,6 +3,7 @@ import {
   CreateNewProductsRequestBody,
   GetAllProductsQueryParams,
   GetAllProductsResponse,
+  GetProductDetailsResponse,
 } from './products.types';
 import { getProperQueryString } from '@/shared/utils/fetchUtils';
 import CONSTANTS from '@/shared/types/constants';
@@ -24,5 +25,13 @@ export const fetchCreateNewProducts = async (
   return await fetchData(`${PRODUCTS}/create`, {
     method: ApiMethod.Post,
     body: JSON.stringify(body),
+  });
+};
+
+export const fetchGetProductDetails = async (
+  id: number,
+): Promise<ApiResponse<GetProductDetailsResponse>> => {
+  return await fetchData(`${PRODUCTS}/${id}`, {
+    method: ApiMethod.Get,
   });
 };

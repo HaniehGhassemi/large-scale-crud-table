@@ -85,6 +85,35 @@ export const handlers = [
     }
   }),
 
+  http.get(`${BASE_URL}${PRODUCTS}/:id`, ({ params }) => {
+    try {
+      const { id } = params;
+      const productId = parseInt(id as string, 10);
+
+      const product = memoryProducts.find((p) => p.id === productId);
+
+      if (!product) {
+        return HttpResponse.json(
+          {
+            data: null,
+            error: 'Product not found',
+          },
+          { status: 404 },
+        );
+      }
+
+      return HttpResponse.json({ data: product });
+    } catch {
+      return HttpResponse.json(
+        {
+          data: null,
+          error: 'Internal server error',
+        },
+        { status: 500 },
+      );
+    }
+  }),
+
   http.get(`${BASE_URL}${CATEGORIES}/all`, () => {
     try {
       if (!categories || categories.length === 0) {

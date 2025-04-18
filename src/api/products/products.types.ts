@@ -35,3 +35,7 @@ export interface CreateNewProductsRequestBody {
   stock: number;
   rating: number;
 }
+
+export interface GetProductDetailsResponse {
+  data: Product;
+}
