@@ -1,0 +1,66 @@
+.tbody {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+
+  .row {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    background-color: var(--primary);
+    font-size: 1.4rem;
+    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: flex-start;
+
+    &:nth-child(even) {
+      background-color: var(--tertiary);
+    }
+
+    @include respond(lg) {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .countable {
+      width: 5%;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .cell {
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      .value {
+        font-size: 1.4rem;
+        font-weight: 400;
+      }
+
+      .cellContent {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .label {
+          font-size: 1.2rem;
+          color: var(--color-text-disabled);
+        }
+
+        .value {
+          font-size: 1.4rem;
+          font-weight: 400;
+          max-width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

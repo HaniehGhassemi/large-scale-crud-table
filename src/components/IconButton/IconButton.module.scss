@@ -1,0 +1,37 @@
+.btn {
+  min-width: 4.2rem;
+  min-height: 4.2rem;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 0.4rem;
+  max-width: fit-content;
+}
+
+.primary {
+  background-color: var(--color-button-primary);
+
+  svg {
+    color: var(--color-text-secondary);
+  }
+}
+
+.secondary {
+  min-width: fit-content;
+  min-height: fit-content;
+  background-color: transparent;
+  border: unset;
+
+  svg {
+    color: var(--color-text-disable);
+  }
+
+  &:hover {
+    svg {
+      color: var(--color-text-tertiary);
+    }
+  }
+}

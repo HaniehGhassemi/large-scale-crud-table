@@ -1,0 +1,28 @@
+/*
+  * Display helpers
+  - Device                Code        Range
+  - Small                 sm          640px > < 768px
+  - Medium                md          768px > < 1024px
+  - Large                 lg           1024px > < 1280px
+ 
+*/
+
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media only screen and (min-width: 640px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == md {
+    @media only screen and (min-width: 768px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == lg {
+    @media only screen and (min-width: 1024px) {
+      @content;
+    }
+  }
+}
