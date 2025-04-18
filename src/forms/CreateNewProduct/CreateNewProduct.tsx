@@ -11,6 +11,7 @@ import styles from './CreateNewProduct.module.scss';
 import { SelectOption } from '@/shared/types/types';
 import { fetchGetAllCategories } from '@/api/categories/categories';
 import Select from '@/components/Fields/Select/Select';
+import { saveProducts } from '@/db/ProductsDB';
 
 interface CreateNewProductProps {
   submit: () => void;
@@ -89,7 +90,13 @@ const CreateNewProduct: React.FC<CreateNewProductProps> = ({ submit }) => {
         return;
       }
 
-      toast.success(`${values.title} created successfully`);
+      try {
+        await saveProducts([data.data]);
+        toast.success(`${values.title} created successfully`);
+      } catch {
+        toast.error('Failed to create product');
+      }
+
       setIsBtnLoading(false);
       submit();
     },

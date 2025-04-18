@@ -1,5 +1,4 @@
 import { fetchGetAllCategories } from '@/api/categories/categories';
-import { fetchUpdateProducts } from '@/api/products/products';
 import BaseButton from '@/components/BaseButton/BaseButton';
 import Input from '@/components/Fields/Input/Input';
 import Select from '@/components/Fields/Select/Select';
@@ -12,6 +11,7 @@ import CONSTANTS from '@/shared/types/constants';
 import * as y from 'yup';
 import styles from './UpdateProduct.module.scss';
 import { Product } from '@/api/products/products.types';
+import { updateProductById } from '@/db/ProductsDB';
 
 interface UpdateProductProps {
   product: Product;
@@ -82,11 +82,11 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ submit, product }) => {
     onSubmit: async (values) => {
       setIsBtnLoading(true);
 
-      const { data, error } = await fetchUpdateProducts(product.id, {
+      const dbResult = await updateProductById(product.id, {
         ...values,
       });
 
-      if (!data || error) {
+      if (!dbResult) {
         setIsBtnLoading(false);
         return;
       }
