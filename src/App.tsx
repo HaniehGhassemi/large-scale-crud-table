@@ -1,5 +1,8 @@
-import { GetAllProductsResponse } from './api/products/products.types';
-import { fetchGetAllProducts } from './api/products/products';
+import { GetAllProductsResponse, Product } from './api/products/products.types';
+import {
+  fetchGetAllProducts,
+  fetchGetProductDetails,
+} from './api/products/products';
 import { useState, useCallback, useEffect } from 'react';
 import Table from './components/Table/Table';
 import styles from './index.module.scss';
@@ -7,7 +10,7 @@ import { convertDate } from './shared/utils/dateUtils';
 import priceSeparator from './shared/utils/priceUtils';
 import IconButton from './components/IconButton/IconButton';
 import { AccentColors, Variant } from './shared/types/enums';
-import { InformationIcon, PlusIcon } from './assets/icons';
+import { InformationIcon, PlusIcon, UpdateIcon } from './assets/icons';
 import Modal from './components/Modal/Modal';
 import { Column, Row } from './components/Table/Table.types';
 import Typography from './components/Typography/Typography';
@@ -15,6 +18,7 @@ import ProductsFilters from './filters/ProductsFilters/ProductsFilters';
 import { ProductFilterItems } from './filters/ProductsFilters/ProductsFilters.types';
 import { ActionButton } from './shared/types/types';
 import CreateNewProduct from './forms/CreateNewProduct/CreateNewProduct';
+import UpdateProduct from './forms/UpdateProduct/UpdateProduct';
 
 function App() {
   const [products, setProducts] = useState<GetAllProductsResponse>();
@@ -27,6 +31,8 @@ function App() {
   const [appliedFilters, setAppliedFilters] = useState<ProductFilterItems>();
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+  const [product, setProduct] = useState<Product>();
 
   const getAllProducts = useCallback(async () => {
     const { data, error } = await fetchGetAllProducts({
@@ -75,7 +81,7 @@ function App() {
       size: '12%',
     },
     {
-      label: 'description',
+      label: 'actions',
       size: '10%',
     },
   ];
@@ -104,14 +110,22 @@ function App() {
           },
           {
             value: (
-              <IconButton
-                icon={<InformationIcon />}
-                color={AccentColors.Secondary}
-                onClick={() =>
-                  handleDisplayDescription(item.title, item.description)
-                }
-                title={'more information'}
-              />
+              <>
+                <IconButton
+                  icon={<InformationIcon />}
+                  color={AccentColors.Secondary}
+                  onClick={() =>
+                    handleDisplayDescription(item.title, item.description)
+                  }
+                  title={'more information'}
+                />
+                <IconButton
+                  icon={<UpdateIcon />}
+                  color={AccentColors.Secondary}
+                  onClick={() => handleDisplayUpdateProductForm(item.id)}
+                  title={`update ${item.title}`}
+                />
+              </>
             ),
           },
         ],
@@ -122,6 +136,16 @@ function App() {
     setProductTitle(title);
     setProductDescription(description);
     setIsOpen(true);
+  };
+
+  const handleDisplayUpdateProductForm = async (id: number) => {
+    const { data, error } = await fetchGetProductDetails(id);
+
+    if (!data || error) return;
+
+    setProduct(data.data);
+
+    setIsUpdateModalOpen(true);
   };
 
   const tableControlAction: ActionButton = {
@@ -179,6 +203,23 @@ function App() {
         }
         onClose={() => setIsCreateModalOpen(false)}
       />
+
+      {product && (
+        <Modal
+          isOpen={isUpdateModalOpen}
+          title={`Update ${product.title}`}
+          body={
+            <UpdateProduct
+              submit={() => {
+                getAllProducts();
+                setIsUpdateModalOpen(false);
+              }}
+              product={product}
+            />
+          }
+          onClose={() => setIsUpdateModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

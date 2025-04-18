@@ -5,7 +5,6 @@ import Input from '@/components/Fields/Input/Input';
 import { TableProps } from './Table.types';
 import IconButton from '../IconButton/IconButton';
 import Filter from '@/assets/icons/Filter';
-import { useState } from 'react';
 import styles from './Table.module.scss';
 import Pagination from './components/Pagination/Pagination';
 import Modal from '../Modal/Modal';

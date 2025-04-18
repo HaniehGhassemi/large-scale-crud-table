@@ -8,6 +8,7 @@ import ArrowRightIcon from './ArrowRight';
 import InformationIcon from './Information';
 import CloseIcon from './Close';
 import PlusIcon from './Plus';
+import UpdateIcon from './Update';
 
 export {
   SearchIcon,
@@ -20,4 +21,5 @@ export {
   InformationIcon,
   CloseIcon,
   PlusIcon,
+  UpdateIcon,
 };

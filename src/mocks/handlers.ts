@@ -4,6 +4,7 @@ import categories from './data/categories.json';
 import {
   CreateNewProductsRequestBody,
   Product,
+  UpdateProductsRequestBody,
 } from '../api/products/products.types';
 import CONSTANTS from '@/shared/types/constants';
 
@@ -114,21 +115,34 @@ export const handlers = [
     }
   }),
 
-  http.get(`${BASE_URL}${CATEGORIES}/all`, () => {
+  http.put(`${BASE_URL}${PRODUCTS}/update/:id`, async ({ request, params }) => {
     try {
-      if (!categories || categories.length === 0) {
+      const { id } = params;
+      const productId = parseInt(id as string, 10);
+
+      const body = (await request.json()) as UpdateProductsRequestBody;
+
+      const index = memoryProducts.findIndex((p) => p.id === productId);
+
+      if (index === -1) {
         return HttpResponse.json(
           {
             data: null,
-            error: 'Categories not found',
+            error: 'Product not found',
           },
           { status: 404 },
         );
       }
 
-      return HttpResponse.json({
-        data: categories,
-      });
+      const updatedProduct: Product = {
+        ...memoryProducts[index],
+        ...body,
+        date: new Date().toISOString(),
+      };
+
+      memoryProducts[index] = updatedProduct;
+
+      return HttpResponse.json({ data: updatedProduct }, { status: 200 });
     } catch {
       return HttpResponse.json(
         {
@@ -187,6 +201,32 @@ export const handlers = [
           error: 'Invalid request body',
         },
         { status: 400 },
+      );
+    }
+  }),
+
+  http.get(`${BASE_URL}${CATEGORIES}/all`, () => {
+    try {
+      if (!categories || categories.length === 0) {
+        return HttpResponse.json(
+          {
+            data: null,
+            error: 'Categories not found',
+          },
+          { status: 404 },
+        );
+      }
+
+      return HttpResponse.json({
+        data: categories,
+      });
+    } catch {
+      return HttpResponse.json(
+        {
+          data: null,
+          error: 'Internal server error',
+        },
+        { status: 500 },
       );
     }
   }),

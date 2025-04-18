@@ -39,3 +39,12 @@ export interface CreateNewProductsRequestBody {
 export interface GetProductDetailsResponse {
   data: Product;
 }
+
+export interface UpdateProductsRequestBody {
+  title: string;
+  category: string;
+  price: number;
+  description: string;
+  stock: number;
+  rating: number;
+}

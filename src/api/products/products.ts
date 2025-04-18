@@ -4,6 +4,7 @@ import {
   GetAllProductsQueryParams,
   GetAllProductsResponse,
   GetProductDetailsResponse,
+  UpdateProductsRequestBody,
 } from './products.types';
 import { getProperQueryString } from '@/shared/utils/fetchUtils';
 import CONSTANTS from '@/shared/types/constants';
@@ -21,7 +22,7 @@ export const fetchGetAllProducts = async (
 
 export const fetchCreateNewProducts = async (
   body: CreateNewProductsRequestBody,
-): Promise<ApiResponse<GetAllProductsResponse>> => {
+): Promise<ApiResponse<GetProductDetailsResponse>> => {
   return await fetchData(`${PRODUCTS}/create`, {
     method: ApiMethod.Post,
     body: JSON.stringify(body),
@@ -33,5 +34,15 @@ export const fetchGetProductDetails = async (
 ): Promise<ApiResponse<GetProductDetailsResponse>> => {
   return await fetchData(`${PRODUCTS}/${id}`, {
     method: ApiMethod.Get,
+  });
+};
+
+export const fetchUpdateProducts = async (
+  id: number,
+  body: UpdateProductsRequestBody,
+): Promise<ApiResponse<GetProductDetailsResponse>> => {
+  return await fetchData(`${PRODUCTS}/update/${id}`, {
+    method: ApiMethod.Put,
+    body: JSON.stringify(body),
   });
 };
