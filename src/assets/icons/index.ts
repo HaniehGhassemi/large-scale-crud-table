@@ -12,6 +12,8 @@ import UpdateIcon from './Update';
 import TrashIcon from './Trash';
 import ArrowDownIcon from './ArrowDown';
 import ArrowTopIcon from './ArrowTop';
+import LightIcon from './Light';
+import DarkIcon from './Dark';
 
 export {
   SearchIcon,
@@ -28,4 +30,6 @@ export {
   TrashIcon,
   ArrowDownIcon,
   ArrowTopIcon,
+  LightIcon,
+  DarkIcon,
 };

@@ -21,7 +21,7 @@ const Typography: React.FC<TypographyProps> = ({
       className={`${
         color
           ? styles[`${color.toLowerCase()}`]
-          : styles[`${AccentColors.Primary}`]
+          : styles[`${AccentColors.Primary.toLowerCase()}`]
       }`}
       style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
@@ -32,7 +32,7 @@ const Typography: React.FC<TypographyProps> = ({
       className={`${
         color
           ? styles[`${color.toLowerCase()}`]
-          : styles[`${AccentColors.Primary}`]
+          : styles[`${AccentColors.Primary.toLowerCase()}`]
       }`}
       style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
@@ -43,7 +43,7 @@ const Typography: React.FC<TypographyProps> = ({
       className={`${
         color
           ? styles[`${color.toLowerCase()}`]
-          : styles[`${AccentColors.Primary}`]
+          : styles[`${AccentColors.Primary.toLowerCase()}`]
       }`}
       style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
@@ -54,7 +54,7 @@ const Typography: React.FC<TypographyProps> = ({
       className={`${
         color
           ? styles[`${color.toLowerCase()}`]
-          : styles[`${AccentColors.Primary}`]
+          : styles[`${AccentColors.Primary.toLowerCase()}`]
       }`}
       style={{ fontSize: fontSize, fontWeight: `${fontWeight}` }}
     >
