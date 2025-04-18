@@ -113,9 +113,6 @@ export const handlers = [
 
   http.post(`${BASE_URL}${PRODUCTS}/create`, async ({ request }) => {
     try {
-      console.log('====================================');
-      console.log('hi');
-      console.log('====================================');
       const body = (await request.json()) as CreateNewProductsRequestBody;
 
       // simple validation

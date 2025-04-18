@@ -31,9 +31,6 @@ export const fetchData = async <T>(
       body: options.body,
     });
 
-    console.log('====================================');
-    console.log(response);
-    console.log('====================================');
     const data = await response.json();
 
     if (!response.ok) {
