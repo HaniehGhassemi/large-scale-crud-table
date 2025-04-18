@@ -14,6 +14,12 @@ export interface Product {
 export interface GetAllProductsQueryParams {
   page: number;
   pageSize: number;
+  search?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  startDate?: string;
+  endDate?: string;
+  category?: string;
 }
 
 export interface GetAllProductsResponse {
