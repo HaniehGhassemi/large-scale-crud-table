@@ -27,3 +27,6 @@ dist-ssr
 
 # mock msw things
 /public/mockServiceWorker.js
+
+#env
+.env
