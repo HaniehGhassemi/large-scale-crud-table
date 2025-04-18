@@ -1,9 +1,10 @@
-import { GetAllProductsResponse, Product } from './api/products/products.types';
 import {
-  fetchGetAllProducts,
-  fetchGetProductDetails,
-} from './api/products/products';
-import { useState, useCallback, useEffect } from 'react';
+  GetAllProductsQueryParams,
+  GetAllProductsResponse,
+  Product,
+} from './api/products/products.types';
+import { fetchGetAllProducts } from './api/products/products';
+import { useState, useEffect, useCallback } from 'react';
 import Table from './components/Table/Table';
 import styles from './index.module.scss';
 import { convertDate } from './shared/utils/dateUtils';
@@ -25,6 +26,7 @@ import { ActionButton, Sort } from './shared/types/types';
 import CreateNewProduct from './forms/CreateNewProduct/CreateNewProduct';
 import UpdateProduct from './forms/UpdateProduct/UpdateProduct';
 import DeleteProduct from './forms/DeleteProduct/DeleteProduct';
+import { getAllProducts, getProductById, saveProducts } from './db/ProductsDB';
 
 function App() {
   const [products, setProducts] = useState<GetAllProductsResponse>();
@@ -42,10 +44,10 @@ function App() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<Sort>();
 
-  const getAllProducts = useCallback(async () => {
-    const { data, error } = await fetchGetAllProducts({
-      page: page,
-      pageSize: pageSize,
+  const fetchFromDB = useCallback(async () => {
+    const options: GetAllProductsQueryParams = {
+      page,
+      pageSize,
       search: searchQuery,
       minPrice: appliedFilters?.minPrice,
       maxPrice: appliedFilters?.maxPrice,
@@ -54,16 +56,37 @@ function App() {
       category: appliedFilters?.category,
       sortBy: sort?.sortBy,
       sortOrder: sort?.sortOrder,
-    });
+    };
+
+    try {
+      const dbResult = await getAllProducts(options);
+      setProducts(dbResult);
+    } catch (error) {
+      console.error('Failed to fetch from IndexedDB:', error);
+    }
+  }, [page, pageSize, searchQuery, appliedFilters, sort]);
+
+  const getAllProductsRequest = async () => {
+    const { data, error } = await fetchGetAllProducts();
 
     if (!data || error) return;
 
-    setProducts(data);
-  }, [page, pageSize, searchQuery, appliedFilters, sort]);
+    try {
+      await saveProducts(data.data);
+    } catch (err) {
+      console.error('Failed to save to IndexedDB:', err);
+    }
+
+    await fetchFromDB();
+  };
 
   useEffect(() => {
-    getAllProducts();
-  }, [getAllProducts]);
+    getAllProductsRequest();
+  }, []);
+
+  useEffect(() => {
+    fetchFromDB();
+  }, [fetchFromDB]);
 
   const column: Column[] = [
     {
@@ -108,7 +131,7 @@ function App() {
   ];
 
   const rows: Row[] = products
-    ? products.data.map((item) => ({
+    ? products?.data.map((item) => ({
         id: item.id,
         cells: [
           {
@@ -172,11 +195,11 @@ function App() {
   };
 
   const handleDisplayUpdateProductForm = async (id: number) => {
-    const { data, error } = await fetchGetProductDetails(id);
+    const dbResult = await getProductById(id);
 
-    if (!data || error) return;
+    if (!dbResult) return;
 
-    setProduct(data.data);
+    setProduct(dbResult);
 
     setIsUpdateModalOpen(true);
   };
@@ -186,10 +209,6 @@ function App() {
     label: 'add',
     onClick: () => setIsCreateModalOpen(true),
   };
-
-  useEffect(() => {
-    console.log(sort);
-  }, [sort]);
 
   return (
     <div className={styles.container}>
@@ -234,7 +253,7 @@ function App() {
         body={
           <CreateNewProduct
             submit={() => {
-              getAllProducts();
+              fetchFromDB();
               setIsCreateModalOpen(false);
             }}
           />
@@ -249,7 +268,7 @@ function App() {
           body={
             <UpdateProduct
               submit={() => {
-                getAllProducts();
+                fetchFromDB();
                 setIsUpdateModalOpen(false);
               }}
               product={product}
@@ -268,7 +287,7 @@ function App() {
               id={product.id}
               title={product.title}
               submit={() => {
-                getAllProducts();
+                fetchFromDB();
                 setIsDeleteModalOpen(false);
               }}
             />

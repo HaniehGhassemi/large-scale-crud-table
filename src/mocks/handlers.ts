@@ -7,7 +7,6 @@ import {
   UpdateProductsRequestBody,
 } from '../api/products/products.types';
 import CONSTANTS from '@/shared/types/constants';
-import { SortOrder } from '@/shared/types/enums';
 
 const BASE_URL: string = import.meta.env.VITE_APP_API || '';
 const { PRODUCTS, CATEGORIES } = CONSTANTS.API_ENTITY_URLS;
@@ -15,87 +14,20 @@ const { PRODUCTS, CATEGORIES } = CONSTANTS.API_ENTITY_URLS;
 const memoryProducts: Product[] = [...products];
 
 export const handlers = [
-  http.get(`${BASE_URL}${PRODUCTS}/all`, ({ request }) => {
+  http.get(`${BASE_URL}${PRODUCTS}/all`, () => {
     try {
-      const url = new URL(request.url);
-      const page = parseInt(url.searchParams.get('page') || '1', 10);
-      const pageSize = parseInt(url.searchParams.get('pageSize') || '10', 10);
-      const search = url.searchParams.get('search')?.toLowerCase() || '';
-      const minPrice = parseFloat(url.searchParams.get('minPrice') || '0');
-      const maxPrice = parseFloat(
-        url.searchParams.get('maxPrice') || 'Infinity',
-      );
-      const startDate = url.searchParams.get('startDate');
-      const endDate = url.searchParams.get('endDate');
-      const category = url.searchParams.get('category')?.toLowerCase();
-      const sortOrder = url.searchParams.get('sortOrder') as
-        | SortOrder
-        | undefined;
-      const sortBy = url.searchParams.get('sortBy') as
-        | keyof Product
-        | undefined;
-
-      let filteredProducts = products as Product[];
-
-      // filter by search term (title)
-      if (search) {
-        filteredProducts = filteredProducts.filter((product) =>
-          product.title.toLowerCase().includes(search),
+      if (!products || products.length === 0) {
+        return HttpResponse.json(
+          {
+            data: null,
+            error: 'Products not found',
+          },
+          { status: 404 },
         );
       }
-
-      // filter by price range
-      filteredProducts = filteredProducts.filter(
-        (product) => product.price >= minPrice && product.price <= maxPrice,
-      );
-
-      // filter by category
-      if (category) {
-        filteredProducts = filteredProducts.filter(
-          (product) => product.category.toLowerCase() === category,
-        );
-      }
-
-      // filter by date range
-      if (startDate) {
-        filteredProducts = filteredProducts.filter(
-          (product) => new Date(product.date) >= new Date(startDate),
-        );
-      }
-
-      if (endDate) {
-        filteredProducts = filteredProducts.filter(
-          (product) => new Date(product.date) <= new Date(endDate),
-        );
-      }
-
-      // If sortBy is defined, sort by that field
-      if (sortBy) {
-        filteredProducts.sort((a, b) => {
-          let comparison = 0;
-
-          if (a[sortBy] < b[sortBy]) {
-            comparison = -1;
-          } else if (a[sortBy] > b[sortBy]) {
-            comparison = 1;
-          }
-
-          return sortOrder === SortOrder.Desc ? comparison * -1 : comparison;
-        });
-      }
-
-      const total = filteredProducts.length;
-      const start = (page - 1) * pageSize;
-      const end = start + pageSize;
-      const paginatedProducts = filteredProducts.slice(start, end);
 
       return HttpResponse.json({
-        data: paginatedProducts,
-        meta: {
-          page,
-          pageSize,
-          total,
-        },
+        data: products,
       });
     } catch {
       return HttpResponse.json(

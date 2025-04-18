@@ -11,6 +11,11 @@ const CONSTANTS = {
   REGEX: {
     TITLE: /^[A-Za-z\s]+$/,
   },
+  INDEX_DB: {
+    PRODUCTS_DB_NAME: 'ProductDatabase',
+    PRODUCTS_DB_VERSION: 1,
+    PRODUCTS_STORE_NAME: 'products',
+  },
 };
 
 export default Object.freeze(CONSTANTS);

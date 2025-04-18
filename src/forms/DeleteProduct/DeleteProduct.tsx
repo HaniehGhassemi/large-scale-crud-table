@@ -1,10 +1,10 @@
-import { fetchDeleteProduct } from '@/api/products/products';
 import Typography from '@/components/Typography/Typography';
 import { AccentColors, FontSize, Variant } from '@/shared/types/enums';
 import { toast } from 'react-toastify';
 import styles from './DeleteProduct.module.scss';
 import BaseButton from '@/components/BaseButton/BaseButton';
 import { TrashIcon } from '@/assets/icons';
+import { deleteProductById } from '@/db/ProductsDB';
 
 interface DeleteProductProps {
   id: number;
@@ -14,9 +14,9 @@ interface DeleteProductProps {
 
 const DeleteProduct: React.FC<DeleteProductProps> = ({ id, title, submit }) => {
   const deleteProductRequest = async () => {
-    const { data, error } = await fetchDeleteProduct(id);
+    const dbResult = await deleteProductById(id);
 
-    if (!data || error) return;
+    if (!dbResult) return;
 
     toast.success(`${title} deleted successfully`);
     submit();
