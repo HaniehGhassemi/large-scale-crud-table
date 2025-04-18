@@ -7,14 +7,14 @@
   color: var(--color-text-secondary);
 }
 
+.tertiary {
+  color: var(--color-text-tertiary);
+}
+
 .error {
   color: var(--color-text-error);
 }
 
-.active {
-  color: var(--color-text-active);
-}
-
 .disabled {
-  color: var(--color-text-disable);
+  color: var(--color-text-disabled);
 }

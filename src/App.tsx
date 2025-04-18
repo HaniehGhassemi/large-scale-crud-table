@@ -10,7 +10,12 @@ import { convertDate } from './shared/utils/dateUtils';
 import priceSeparator from './shared/utils/priceUtils';
 import IconButton from './components/IconButton/IconButton';
 import { AccentColors, Variant } from './shared/types/enums';
-import { InformationIcon, PlusIcon, UpdateIcon } from './assets/icons';
+import {
+  InformationIcon,
+  PlusIcon,
+  TrashIcon,
+  UpdateIcon,
+} from './assets/icons';
 import Modal from './components/Modal/Modal';
 import { Column, Row } from './components/Table/Table.types';
 import Typography from './components/Typography/Typography';
@@ -19,6 +24,7 @@ import { ProductFilterItems } from './filters/ProductsFilters/ProductsFilters.ty
 import { ActionButton } from './shared/types/types';
 import CreateNewProduct from './forms/CreateNewProduct/CreateNewProduct';
 import UpdateProduct from './forms/UpdateProduct/UpdateProduct';
+import DeleteProduct from './forms/DeleteProduct/DeleteProduct';
 
 function App() {
   const [products, setProducts] = useState<GetAllProductsResponse>();
@@ -33,6 +39,7 @@ function App() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
   const [product, setProduct] = useState<Product>();
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   const getAllProducts = useCallback(async () => {
     const { data, error } = await fetchGetAllProducts({
@@ -124,6 +131,15 @@ function App() {
                   color={AccentColors.Secondary}
                   onClick={() => handleDisplayUpdateProductForm(item.id)}
                   title={`update ${item.title}`}
+                />
+                <IconButton
+                  icon={<TrashIcon />}
+                  color={AccentColors.Secondary}
+                  onClick={() => {
+                    setProduct(item);
+                    setIsDeleteModalOpen(true);
+                  }}
+                  title={`delete ${item.title}`}
                 />
               </>
             ),
@@ -218,6 +234,24 @@ function App() {
             />
           }
           onClose={() => setIsUpdateModalOpen(false)}
+        />
+      )}
+
+      {product && (
+        <Modal
+          isOpen={isDeleteModalOpen}
+          title={`Delete ${product.title}`}
+          body={
+            <DeleteProduct
+              id={product.id}
+              title={product.title}
+              submit={() => {
+                getAllProducts();
+                setIsDeleteModalOpen(false);
+              }}
+            />
+          }
+          onClose={() => setIsDeleteModalOpen(false)}
         />
       )}
     </div>

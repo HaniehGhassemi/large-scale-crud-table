@@ -205,6 +205,37 @@ export const handlers = [
     }
   }),
 
+  http.delete(`${BASE_URL}${PRODUCTS}/delete/:id`, ({ params }) => {
+    try {
+      const { id } = params;
+      const productId = parseInt(id as string, 10);
+
+      const productIndex = memoryProducts.findIndex((p) => p.id === productId);
+
+      if (productIndex === -1) {
+        return HttpResponse.json(
+          {
+            data: null,
+            error: 'Product not found',
+          },
+          { status: 404 },
+        );
+      }
+
+      memoryProducts.splice(productIndex, 1);
+
+      return HttpResponse.json({ data: {} });
+    } catch {
+      return HttpResponse.json(
+        {
+          data: null,
+          error: 'Internal server error',
+        },
+        { status: 500 },
+      );
+    }
+  }),
+
   http.get(`${BASE_URL}${CATEGORIES}/all`, () => {
     try {
       if (!categories || categories.length === 0) {

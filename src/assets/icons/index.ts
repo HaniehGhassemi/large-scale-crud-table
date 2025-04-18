@@ -9,6 +9,7 @@ import InformationIcon from './Information';
 import CloseIcon from './Close';
 import PlusIcon from './Plus';
 import UpdateIcon from './Update';
+import TrashIcon from './Trash';
 
 export {
   SearchIcon,
@@ -22,4 +23,5 @@ export {
   CloseIcon,
   PlusIcon,
   UpdateIcon,
+  TrashIcon,
 };

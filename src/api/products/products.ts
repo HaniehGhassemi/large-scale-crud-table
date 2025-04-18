@@ -46,3 +46,11 @@ export const fetchUpdateProducts = async (
     body: JSON.stringify(body),
   });
 };
+
+export const fetchDeleteProduct = async (
+  id: number,
+): Promise<ApiResponse<GetProductDetailsResponse>> => {
+  return await fetchData(`${PRODUCTS}/delete/${id}`, {
+    method: ApiMethod.Delete,
+  });
+};
