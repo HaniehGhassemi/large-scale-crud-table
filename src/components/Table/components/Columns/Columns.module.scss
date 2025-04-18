@@ -1,0 +1,27 @@
+.columns {
+  display: none;
+
+  @include respond(lg) {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 1.2rem 2rem;
+    background-color: var(--tertiary);
+    gap: 2rem;
+    box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+
+    .countable {
+      width: 5%;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .label {
+      width: 100%;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+  }
+}
