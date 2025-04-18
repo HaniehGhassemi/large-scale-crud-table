@@ -1,8 +1,8 @@
 import SearchIcon from './Search';
 import FilterIcon from './Filter';
 import SortIcon from './Sort';
-import ArrowDownIcon from './ArrowDown';
-import ArrowUpIcon from './ArrowUp';
+import ChevronDownIcon from './ChevronDown';
+import ChevronUpIcon from './ChevronUp';
 import ArrowLeftIcon from './ArrowLeft';
 import ArrowRightIcon from './ArrowRight';
 import InformationIcon from './Information';
@@ -10,13 +10,15 @@ import CloseIcon from './Close';
 import PlusIcon from './Plus';
 import UpdateIcon from './Update';
 import TrashIcon from './Trash';
+import ArrowDownIcon from './ArrowDown';
+import ArrowTopIcon from './ArrowTop';
 
 export {
   SearchIcon,
   FilterIcon,
   SortIcon,
-  ArrowDownIcon,
-  ArrowUpIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
   InformationIcon,
@@ -24,4 +26,6 @@ export {
   PlusIcon,
   UpdateIcon,
   TrashIcon,
+  ArrowDownIcon,
+  ArrowTopIcon,
 };

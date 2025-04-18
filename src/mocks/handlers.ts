@@ -7,6 +7,7 @@ import {
   UpdateProductsRequestBody,
 } from '../api/products/products.types';
 import CONSTANTS from '@/shared/types/constants';
+import { SortOrder } from '@/shared/types/enums';
 
 const BASE_URL: string = import.meta.env.VITE_APP_API || '';
 const { PRODUCTS, CATEGORIES } = CONSTANTS.API_ENTITY_URLS;
@@ -27,6 +28,12 @@ export const handlers = [
       const startDate = url.searchParams.get('startDate');
       const endDate = url.searchParams.get('endDate');
       const category = url.searchParams.get('category')?.toLowerCase();
+      const sortOrder = url.searchParams.get('sortOrder') as
+        | SortOrder
+        | undefined;
+      const sortBy = url.searchParams.get('sortBy') as
+        | keyof Product
+        | undefined;
 
       let filteredProducts = products as Product[];
 
@@ -60,6 +67,21 @@ export const handlers = [
         filteredProducts = filteredProducts.filter(
           (product) => new Date(product.date) <= new Date(endDate),
         );
+      }
+
+      // If sortBy is defined, sort by that field
+      if (sortBy) {
+        filteredProducts.sort((a, b) => {
+          let comparison = 0;
+
+          if (a[sortBy] < b[sortBy]) {
+            comparison = -1;
+          } else if (a[sortBy] > b[sortBy]) {
+            comparison = 1;
+          }
+
+          return sortOrder === SortOrder.Desc ? comparison * -1 : comparison;
+        });
       }
 
       const total = filteredProducts.length;

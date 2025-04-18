@@ -1,3 +1,4 @@
+import { SortOrder } from '@/shared/types/enums';
 import { Meta } from '@/shared/types/types';
 
 export interface Product {
@@ -20,6 +21,8 @@ export interface GetAllProductsQueryParams {
   startDate?: string;
   endDate?: string;
   category?: string;
+  sortOrder?: SortOrder;
+  sortBy?: string;
 }
 
 export interface GetAllProductsResponse {

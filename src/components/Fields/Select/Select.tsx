@@ -6,7 +6,7 @@ import Label from '../Label/Label';
 import TypoGraphy from '@/components/Typography/Typography';
 import { SelectOption } from '@/shared/types/types';
 import Typography from '@/components/Typography/Typography';
-import { ArrowDownIcon, ArrowUpIcon } from '@/assets/icons';
+import { ChevronDownIcon, ChevronUpIcon } from '@/assets/icons';
 
 interface SelectProps {
   label?: string;
@@ -90,7 +90,7 @@ const Select: React.FC<SelectProps> = ({
               'please choose'
             }
           />
-          {isOpen ? <ArrowDownIcon /> : <ArrowUpIcon />}
+          {isOpen ? <ChevronDownIcon /> : <ChevronUpIcon />}
         </div>
         {error && (
           <Typography

@@ -1,14 +1,14 @@
-const ArrowDown = () => {
+const ChevronDown = () => {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M11.996 4.49736L11.9988 19.5027M11.9988 19.5027L16.0387 15.4628M11.9988 19.5027L7.95892 15.4628"
+        d="M16.5 9.75L12 14.25L7.5 9.75"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -17,4 +17,4 @@ const ArrowDown = () => {
   );
 };
 
-export default ArrowDown;
+export default ChevronDown;

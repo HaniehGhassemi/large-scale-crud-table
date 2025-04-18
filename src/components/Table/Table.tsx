@@ -16,6 +16,7 @@ const Table: React.FC<TableProps> = ({
   rows,
   pagination,
   filter,
+  onSortChange,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -49,8 +50,8 @@ const Table: React.FC<TableProps> = ({
         </div>
       )}
       <div className={styles.table}>
-        <Columns columns={columns} />
-        <Rows column={columns} rows={rows} />
+        <Columns columns={columns} onSortChange={onSortChange} />
+        <Rows column={columns} rows={rows} onSortChange={onSortChange} />
       </div>
 
       {pagination && (

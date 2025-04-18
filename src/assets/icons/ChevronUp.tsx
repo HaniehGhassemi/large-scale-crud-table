@@ -1,4 +1,4 @@
-const ArrowUp = () => {
+const ChevronUp = () => {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path
@@ -11,4 +11,4 @@ const ArrowUp = () => {
   );
 };
 
-export default ArrowUp;
+export default ChevronUp;
