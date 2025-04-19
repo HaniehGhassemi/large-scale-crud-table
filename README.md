@@ -1,54 +1,122 @@
-# React + TypeScript + Vite
+# :zap: Large-scale CRUD Table with Advanced Filtering and Sorting
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<br>
 
-Currently, two official plugins are available:
+## :hammer_and_wrench: Requirements for Running the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can run the project in two ways:
 
-## Expanding the ESLint configuration
+### Without Docker
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Make sure you have the following installed on your machine:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+- [Node.js](https://nodejs.org/)
+- A package manager such as **npm** or **yarn**
+
+### With Docker
+
+You only need:
+
+- A **command-line environment**
+- [Docker](https://www.docker.com/) installed
+
+> No need to install Node.js or any package manager locally.
+
+<br>
+
+## :running: Run the project
+
+## :whale: Running the Project with Docker
+
+If you want to run the project using Docker, all you need is Docker installed. Follow the steps below:
+
+### Steps to Run the Project with Docker:
+
+1. **Pull the Image from Docker Hub:**
+   First, pull the project's image from Docker Hub:
+
+```bash
+ docker pull hnigh/large-scale-crud-table:initial
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Run the Project with Docker:**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+```bash
+ After pulling the image, you can run the project inside a container:
+```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+This command will create a container named my-crud-app and map port 5173 on your system to port 5173 inside the container.
+
+2. **Access the Project:**
+   Now, you can access the project by navigating to http://localhost:5173 in your browser.
+
+## :computer: Running the Project Locally (Without Docker)
+
+If you prefer to run the project locally, follow these steps:
+
+### Steps to Run the Project Locally:
+
+1. **Clone the Repository:**
+   First, clone the repository from GitHub:
+
+   ```bash
+   git clone https://github.com/HaniehGhassemi/large-scale-crud-table.git
+   ```
+
+2. **Navigate to the Project Directory:**
+   open the project with any editor
+
+3. **Install Dependencies:**
+   Use your package manager (npm or yarn) to install the dependencies:
+
+For npm:
+
+```bash
+npm install
+```
+
+Or for yarn:
+
+```bash
+yarn
+```
+
+4. **Run the Project:**
+   Now, you can start the development server:
+
+   For npm:
+
+```bash
+npm run dev
+```
+
+Or for yarn:
+
+```bash
+yarn dev
+```
+
+5. **Access the Project:**
+   Once the server is running, you can access the project by navigating to http://localhost:5173 in your browser.
+
+<br>
+
+## :test_tube: Running the Tests
+
+To run the test files for the project, follow these steps:
+
+### With UI:
+
+To run the tests with the UI:
+
+```bash
+yarn test:ui
+```
+
+### Without UI:
+
+To run the tests without the UI:
+
+```bash
+yarn test
 ```
