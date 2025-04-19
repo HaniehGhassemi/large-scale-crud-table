@@ -1,14 +1,10 @@
-import { SearchIcon } from '@/assets/icons';
 import Columns from './components/Columns/Columns';
 import Rows from './components/Rows/Rows';
-import Input from '@/components/Fields/Input/Input';
 import { TableProps } from './Table.types';
-import IconButton from '../IconButton/IconButton';
-import Filter from '@/assets/icons/Filter';
 import styles from './Table.module.scss';
 import Pagination from './components/Pagination/Pagination';
 import Modal from '../Modal/Modal';
-import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import TableHeader from './components/TableHeader/TableHeader';
 
 const Table: React.FC<TableProps> = ({
   search,
@@ -21,37 +17,8 @@ const Table: React.FC<TableProps> = ({
 }) => {
   return (
     <div className={styles.wrapper}>
-      {(search || action || filter) && (
-        <div className={styles.header}>
-          {search && (
-            <Input
-              type="text"
-              icon={<SearchIcon />}
-              value={search.value}
-              onChange={(e) => search.onChange(e.target.value)}
-              placeHolder={search.placeholder}
-            />
-          )}
-          {filter && (
-            <IconButton
-              icon={<Filter />}
-              onClick={() => filter.onOpen(true)}
-              title="filters"
-            />
-          )}
+      <TableHeader search={search} action={action} filter={filter} />
 
-          {action && (
-            <IconButton
-              icon={action.icon}
-              onClick={action.onClick}
-              title={action.label}
-              color={action.color}
-            />
-          )}
-
-          <ThemeToggle />
-        </div>
-      )}
       <div className={styles.table}>
         <Columns columns={columns} onSortChange={onSortChange} />
         <Rows column={columns} rows={rows} onSortChange={onSortChange} />

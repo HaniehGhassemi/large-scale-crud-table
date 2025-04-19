@@ -22,22 +22,23 @@ export interface PaginationProps {
   total: number;
 }
 
+export interface Search {
+  value: string;
+  onChange: React.Dispatch<React.SetStateAction<string>>;
+  placeholder: string;
+}
+export interface Filter {
+  isOpen: boolean;
+  body: ReactNode;
+  onOpen: (open: boolean) => void;
+}
+
 export interface TableProps {
   columns: Column[];
   rows: Row[];
   pagination?: PaginationProps;
   action?: ActionButton;
-  search?: {
-    value: string;
-    onChange: React.Dispatch<React.SetStateAction<string>>;
-    placeholder: string;
-  };
-
-  filter?: {
-    isOpen: boolean;
-    body: ReactNode;
-    onOpen: (open: boolean) => void;
-  };
-
+  search?: Search;
+  filter?: Filter;
   onSortChange?: (sort?: Sort) => void;
 }
