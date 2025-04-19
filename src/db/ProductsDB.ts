@@ -8,7 +8,26 @@ import CONSTANTS from '@/shared/types/constants';
 const { PRODUCTS_DB_NAME, PRODUCTS_DB_VERSION, PRODUCTS_STORE_NAME } =
   CONSTANTS.INDEX_DB;
 
-const openDB = (): Promise<IDBDatabase> => {
+const deleteDB = (): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.deleteDatabase(PRODUCTS_DB_NAME);
+    request.onsuccess = () => {
+      console.log('Database deleted successfully');
+      resolve();
+    };
+    request.onerror = () => {
+      console.error('Error deleting database:', request.error);
+      reject(request.error);
+    };
+    request.onblocked = () => {
+      console.warn('Delete blocked. Please close other tabs.');
+    };
+  });
+};
+
+const openDB = async (): Promise<IDBDatabase> => {
+  await deleteDB(); // for create objectStore
+
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(PRODUCTS_DB_NAME, PRODUCTS_DB_VERSION);
 
@@ -31,6 +50,7 @@ const openDB = (): Promise<IDBDatabase> => {
 
 const saveProducts = async (products: Product[]): Promise<void> => {
   const db = await openDB();
+  console.log(db);
   const transaction = db.transaction(PRODUCTS_STORE_NAME, 'readwrite');
   const store = transaction.objectStore(PRODUCTS_STORE_NAME);
 
