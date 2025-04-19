@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import IconButton from '@/components/IconButton/IconButton';
+import IconButton from '@/components/Buttons/IconButton/IconButton';
 import { Column } from '../../Table.types';
 import styles from './Columns.module.scss';
 import { SortIcon, ArrowTopIcon, ArrowDownIcon } from '@/assets/icons';

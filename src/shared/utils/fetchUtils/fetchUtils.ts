@@ -1,4 +1,4 @@
-import { ListQueryParams } from '../types/types';
+import { ListQueryParams } from '../../types/types';
 
 export const getProperQueryString = (queryParams: ListQueryParams) => {
   const queryString = Object.keys(queryParams)

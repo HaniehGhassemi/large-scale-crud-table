@@ -2,7 +2,7 @@ import Typography from '@/components/Typography/Typography';
 import { AccentColors, FontSize, Variant } from '@/shared/types/enums';
 import { toast } from 'react-toastify';
 import styles from './DeleteProduct.module.scss';
-import BaseButton from '@/components/BaseButton/BaseButton';
+import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import { TrashIcon } from '@/assets/icons';
 import { deleteProductById } from '@/db/ProductsDB';
 
