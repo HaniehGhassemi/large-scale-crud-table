@@ -6,10 +6,10 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
 import { store } from './stores/store.ts';
+import { worker } from './mocks/browser.ts';
 
 async function enableMocking() {
-  if (import.meta.env.DEV) {
-    const { worker } = await import('./mocks/browser');
+  if (import.meta.env.VITE_APP_API) {
     await worker.start();
   }
 }

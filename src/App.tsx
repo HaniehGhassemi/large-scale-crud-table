@@ -43,6 +43,7 @@ function App() {
   const [product, setProduct] = useState<Product>();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<Sort>();
+  const [isDBReady, setIsDBReady] = useState(false);
 
   const fetchFromDB = useCallback(async () => {
     const options: GetAllProductsQueryParams = {
@@ -66,27 +67,27 @@ function App() {
     }
   }, [page, pageSize, searchQuery, appliedFilters, sort]);
 
-  const getAllProductsRequest = async () => {
-    const { data, error } = await fetchGetAllProducts();
-
-    if (!data || error) return;
-
-    try {
-      await saveProducts(data.data);
-    } catch (err) {
-      console.error('Failed to save to IndexedDB:', err);
-    }
-
-    await fetchFromDB();
-  };
-
   useEffect(() => {
+    const getAllProductsRequest = async () => {
+      const { data, error } = await fetchGetAllProducts();
+
+      if (!data || error) return;
+
+      try {
+        await saveProducts(data.data);
+        setIsDBReady(true);
+      } catch (err) {
+        console.error('Failed to save to IndexedDB:', err);
+      }
+    };
+
     getAllProductsRequest();
   }, []);
 
   useEffect(() => {
+    if (!isDBReady) return;
     fetchFromDB();
-  }, [fetchFromDB]);
+  }, [fetchFromDB, isDBReady]);
 
   const column: Column[] = [
     {
@@ -195,13 +196,17 @@ function App() {
   };
 
   const handleDisplayUpdateProductForm = async (id: number) => {
-    const dbResult = await getProductById(id);
+    try {
+      const dbResult = await getProductById(id);
 
-    if (!dbResult) return;
+      if (!dbResult) return;
 
-    setProduct(dbResult);
+      setProduct(dbResult);
 
-    setIsUpdateModalOpen(true);
+      setIsUpdateModalOpen(true);
+    } catch (err) {
+      console.error('Failed to get product details from IndexedDB:', err);
+    }
   };
 
   const tableControlAction: ActionButton = {

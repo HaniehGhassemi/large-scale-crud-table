@@ -1,7 +1,7 @@
 import { FilterIcon, SearchIcon } from '@/assets/icons';
 import Input from '@/components/Fields/Input/Input';
 import IconButton from '@/components/Buttons/IconButton/IconButton';
-import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
+import ThemeToggle from '@/components/Buttons/ThemeToggle/ThemeToggle';
 import { ActionButton } from '@/shared/types/types';
 import { Search, Filter } from '../../Table.types';
 import styles from './TableHeader.module.scss';

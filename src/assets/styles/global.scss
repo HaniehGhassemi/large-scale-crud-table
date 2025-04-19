@@ -3,6 +3,10 @@
   --secondary: #242424;
   --tertiary: #fbfbfb;
 
+  // body background
+  --background-primary: #66bae8;
+  --background-secondary: #f2fcfe;
+
   // Text
   --color-text-primary: #000;
   --color-text-secondary: #fff;
@@ -21,16 +25,16 @@
   --color-button-disabled: #d9d9d9;
 
   --font-primary: googleFont, arial, verdana, tahoma, sans-serif;
-
-  body {
-    background-image: linear-gradient(to right, #66bae8, #f2fcfe);
-  }
 }
 
 :root.dark {
   --primary: #121212;
   --secondary: #1e1e1e;
   --tertiary: #2a2a2a;
+
+  // body background
+  --background-primary: #3a4e8c;
+  --background-secondary: #1a2c38;
 
   // Text
   --color-text-primary: #fff;
@@ -50,16 +54,20 @@
   --color-button-disabled: #444444;
 
   --font-primary: googleFont, arial, verdana, tahoma, sans-serif;
-
-  body {
-    background-image: linear-gradient(to right, #3a4e8c, #1a2c38);
-  }
 }
 
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
+}
+
+body {
+  background-image: linear-gradient(
+    to right,
+    var(--background-primary),
+    var(--background-secondary)
+  );
 }
 
 * {

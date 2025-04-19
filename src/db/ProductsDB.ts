@@ -1,4 +1,5 @@
 import {
+  CreateNewProductsRequestBody,
   GetAllProductsQueryParams,
   Product,
   UpdateProductsRequestBody,
@@ -8,26 +9,7 @@ import CONSTANTS from '@/shared/types/constants';
 const { PRODUCTS_DB_NAME, PRODUCTS_DB_VERSION, PRODUCTS_STORE_NAME } =
   CONSTANTS.INDEX_DB;
 
-const deleteDB = (): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.deleteDatabase(PRODUCTS_DB_NAME);
-    request.onsuccess = () => {
-      console.log('Database deleted successfully');
-      resolve();
-    };
-    request.onerror = () => {
-      console.error('Error deleting database:', request.error);
-      reject(request.error);
-    };
-    request.onblocked = () => {
-      console.warn('Delete blocked. Please close other tabs.');
-    };
-  });
-};
-
 const openDB = async (): Promise<IDBDatabase> => {
-  await deleteDB(); // for create objectStore
-
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(PRODUCTS_DB_NAME, PRODUCTS_DB_VERSION);
 
@@ -49,24 +31,27 @@ const openDB = async (): Promise<IDBDatabase> => {
 };
 
 const saveProducts = async (products: Product[]): Promise<void> => {
-  const db = await openDB();
-  console.log(db);
-  const transaction = db.transaction(PRODUCTS_STORE_NAME, 'readwrite');
-  const store = transaction.objectStore(PRODUCTS_STORE_NAME);
+  try {
+    const db = await openDB();
+    const transaction = db.transaction(PRODUCTS_STORE_NAME, 'readwrite');
+    const store = transaction.objectStore(PRODUCTS_STORE_NAME);
 
-  products.forEach((product) => {
-    store.put(product);
-  });
+    products.forEach((product) => {
+      store.put(product);
+    });
 
-  return new Promise((resolve, reject) => {
-    transaction.oncomplete = () => {
-      resolve();
-    };
+    return new Promise((resolve, reject) => {
+      transaction.oncomplete = () => {
+        resolve();
+      };
 
-    transaction.onerror = () => {
-      reject(`Transaction error: ${transaction.error}`);
-    };
-  });
+      transaction.onerror = () => {
+        reject(`Transaction error: ${transaction.error}`);
+      };
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const getAllProducts = async (
@@ -251,10 +236,50 @@ const deleteProductById = async (id: number): Promise<boolean> => {
   });
 };
 
+const createProduct = async (
+  data: CreateNewProductsRequestBody,
+): Promise<Product> => {
+  const db = await openDB();
+  const transaction = db.transaction(PRODUCTS_STORE_NAME, 'readwrite');
+  const store = transaction.objectStore(PRODUCTS_STORE_NAME);
+
+  return new Promise((resolve, reject) => {
+    const getAllRequest = store.getAll();
+
+    getAllRequest.onsuccess = () => {
+      const allProducts = getAllRequest.result as Product[];
+
+      const maxId = allProducts.reduce((max, p) => Math.max(max, p.id), 0);
+      const newId = maxId + 1;
+
+      const newProduct: Product = {
+        id: newId,
+        date: new Date().toISOString(),
+        ...data,
+      };
+
+      const addRequest = store.add(newProduct);
+
+      addRequest.onsuccess = () => {
+        resolve(newProduct);
+      };
+
+      addRequest.onerror = () => {
+        reject(`Failed to add new product: ${addRequest.error}`);
+      };
+    };
+
+    getAllRequest.onerror = () => {
+      reject(`Failed to fetch all products: ${getAllRequest.error}`);
+    };
+  });
+};
+
 export {
   saveProducts,
   getAllProducts,
   getProductById,
   updateProductById,
   deleteProductById,
+  createProduct,
 };

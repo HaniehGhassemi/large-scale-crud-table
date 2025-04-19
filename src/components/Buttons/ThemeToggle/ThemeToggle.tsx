@@ -1,7 +1,7 @@
 import { RootState } from '@/stores/store';
 import { toggleTheme } from '@/stores/themeSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import IconButton from '../Buttons/IconButton/IconButton';
+import IconButton from '../IconButton/IconButton';
 import { DarkIcon, LightIcon } from '@/assets/icons';
 import { useEffect } from 'react';
 import CONSTANTS from '@/shared/types/constants';

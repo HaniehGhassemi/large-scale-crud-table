@@ -39,10 +39,6 @@ export interface CreateNewProductsRequestBody {
   rating: number;
 }
 
-export interface GetProductDetailsResponse {
-  data: Product;
-}
-
 export interface UpdateProductsRequestBody {
   title: string;
   category: string;

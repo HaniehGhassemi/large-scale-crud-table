@@ -10,14 +10,8 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .pageSize {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.8rem;
-
+  .pageSize,
+  .pagination {
     .select {
       max-width: fit-content;
       padding: 0.4rem;
@@ -30,6 +24,15 @@
     }
   }
 
+  .pageSize {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.8rem;
+  }
+
   .pagination {
     width: 100%;
     display: flex;
@@ -40,17 +43,6 @@
 
     @include respond(lg) {
       justify-content: flex-end;
-    }
-
-    .select {
-      max-width: fit-content;
-      padding: 0.4rem;
-      border-radius: 0.4rem;
-      border-color: var(--color-border-primary);
-      outline: none;
-      font-size: 1.2rem;
-      background-color: var(--tertiary);
-      color: var(--color-text-primary);
     }
   }
 }
