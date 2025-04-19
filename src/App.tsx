@@ -7,9 +7,6 @@ import { fetchGetAllProducts } from './api/products/products';
 import { useState, useEffect, useCallback } from 'react';
 import Table from './components/Table/Table';
 import styles from './index.module.scss';
-import { convertDate } from './shared/utils/dateUtils';
-import priceSeparator from './shared/utils/priceUtils';
-import IconButton from './components/IconButton/IconButton';
 import { AccentColors, Variant } from './shared/types/enums';
 import {
   InformationIcon,
@@ -27,6 +24,9 @@ import CreateNewProduct from './forms/CreateNewProduct/CreateNewProduct';
 import UpdateProduct from './forms/UpdateProduct/UpdateProduct';
 import DeleteProduct from './forms/DeleteProduct/DeleteProduct';
 import { getAllProducts, getProductById, saveProducts } from './db/ProductsDB';
+import IconButton from './components/Buttons/IconButton/IconButton';
+import { convertDate } from './shared/utils/dateUtils/dateUtils';
+import priceSeparator from './shared/utils/priceUtils/priceUtils';
 
 function App() {
   const [products, setProducts] = useState<GetAllProductsResponse>();

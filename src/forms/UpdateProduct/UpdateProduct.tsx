@@ -1,5 +1,5 @@
 import { fetchGetAllCategories } from '@/api/categories/categories';
-import BaseButton from '@/components/BaseButton/BaseButton';
+import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import Input from '@/components/Fields/Input/Input';
 import Select from '@/components/Fields/Select/Select';
 import Textarea from '@/components/Fields/Textarea/Textarea';
@@ -7,11 +7,10 @@ import { SelectOption } from '@/shared/types/types';
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import CONSTANTS from '@/shared/types/constants';
-import * as y from 'yup';
 import styles from './UpdateProduct.module.scss';
 import { Product } from '@/api/products/products.types';
 import { updateProductById } from '@/db/ProductsDB';
+import { productValidationSchema } from '@/shared/validations/ProductValidations';
 
 interface UpdateProductProps {
   product: Product;
@@ -48,37 +47,7 @@ const UpdateProduct: React.FC<UpdateProductProps> = ({ submit, product }) => {
       stock: 0,
       rating: 0,
     },
-    validationSchema: y.object({
-      title: y
-        .string()
-        .required('Title is required')
-        .matches(
-          CONSTANTS.REGEX.TITLE,
-          'Title must only contain letters and spaces',
-        )
-        .min(3, 'Title must be at least 3 characters long'),
-      description: y
-        .string()
-        .required('Description is required')
-        .min(10, 'Description must be at least 10 characters'),
-      category: y.string().required('Category is required'),
-      price: y
-        .number()
-        .typeError('Price must be a number')
-        .required('Price is required')
-        .min(1, 'Price cannot be less than 0'),
-      stock: y
-        .number()
-        .typeError('Stock must be a number')
-        .required('Stock is required')
-        .min(1, 'Stock cannot be less than 0'),
-      rating: y
-        .number()
-        .typeError('Rating must be a number')
-        .required('Rating is required')
-        .min(1, 'Rating cannot be less than 0')
-        .max(5, 'Rating cannot be more than 5'),
-    }),
+    validationSchema: productValidationSchema,
     onSubmit: async (values) => {
       setIsBtnLoading(true);
 

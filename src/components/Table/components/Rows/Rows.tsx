@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { FixedSizeList as List, ListChildComponentProps } from 'react-window';
-import IconButton from '@/components/IconButton/IconButton';
+import IconButton from '@/components/Buttons/IconButton/IconButton';
 import { Column, Row } from '../../Table.types';
 import styles from './Rows.module.scss';
 import CONSTANTS from '@/shared/types/constants';

@@ -3,7 +3,7 @@ import classes from './Modal.module.scss';
 import { ReactNode } from 'react';
 import Typography from '../Typography/Typography';
 import { AccentColors, Variant } from '@/shared/types/enums';
-import IconButton from '../IconButton/IconButton';
+import IconButton from '../Buttons/IconButton/IconButton';
 import { CloseIcon } from '@/assets/icons';
 
 interface Modal {

@@ -5,7 +5,7 @@ import CustomDatePicker from '@/components/Fields/CustomDatePicker/CustomDatePic
 import Input from '@/components/Fields/Input/Input';
 import Select from '@/components/Fields/Select/Select';
 import Typography from '@/components/Typography/Typography';
-import BaseButton from '@/components/BaseButton/BaseButton';
+import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import { ProductsFiltersProps } from './ProductsFilters.types';
 import { SelectOption } from '@/shared/types/types';
 import { AccentColors, Variant } from '@/shared/types/enums';

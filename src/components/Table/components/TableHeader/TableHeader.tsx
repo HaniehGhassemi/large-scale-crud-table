@@ -1,6 +1,6 @@
 import { FilterIcon, SearchIcon } from '@/assets/icons';
 import Input from '@/components/Fields/Input/Input';
-import IconButton from '@/components/IconButton/IconButton';
+import IconButton from '@/components/Buttons/IconButton/IconButton';
 import ThemeToggle from '@/components/ThemeToggle/ThemeToggle';
 import { ActionButton } from '@/shared/types/types';
 import { Search, Filter } from '../../Table.types';
