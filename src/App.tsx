@@ -196,13 +196,17 @@ function App() {
   };
 
   const handleDisplayUpdateProductForm = async (id: number) => {
-    const dbResult = await getProductById(id);
+    try {
+      const dbResult = await getProductById(id);
 
-    if (!dbResult) return;
+      if (!dbResult) return;
 
-    setProduct(dbResult);
+      setProduct(dbResult);
 
-    setIsUpdateModalOpen(true);
+      setIsUpdateModalOpen(true);
+    } catch (err) {
+      console.error('Failed to get product details from IndexedDB:', err);
+    }
   };
 
   const tableControlAction: ActionButton = {

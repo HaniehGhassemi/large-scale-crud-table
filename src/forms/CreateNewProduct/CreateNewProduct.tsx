@@ -1,4 +1,3 @@
-import { fetchCreateNewProducts } from '@/api/products/products';
 import Input from '@/components/Fields/Input/Input';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -9,7 +8,7 @@ import styles from './CreateNewProduct.module.scss';
 import { SelectOption } from '@/shared/types/types';
 import { fetchGetAllCategories } from '@/api/categories/categories';
 import Select from '@/components/Fields/Select/Select';
-import { createProduct, saveProducts } from '@/db/ProductsDB';
+import { createProduct } from '@/db/ProductsDB';
 import { productValidationSchema } from '@/shared/validations/ProductValidations';
 
 interface CreateNewProductProps {

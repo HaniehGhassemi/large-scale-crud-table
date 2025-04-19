@@ -107,7 +107,7 @@ const Select: React.FC<SelectProps> = ({
         createPortal(
           <div
             ref={optionsRef}
-            className={styles['options-list']}
+            className={styles.optionsList}
             style={{
               top: `${position.top}px`,
               left: `${position.left}px`,
