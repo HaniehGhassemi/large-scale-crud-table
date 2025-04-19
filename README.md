@@ -26,11 +26,11 @@ You only need:
 
 ## :running: Run the project
 
-## :whale: Running the Project with Docker
+### :whale: Running the Project with Docker
 
 If you want to run the project using Docker, all you need is Docker installed. Follow the steps below:
 
-### Steps to Run the Project with Docker:
+#### Steps to Run the Project with Docker:
 
 1. **Pull the Image from Docker Hub:**
    First, pull the project's image from Docker Hub:
@@ -84,7 +84,7 @@ yarn
 4. **Run the Project:**
    Now, you can start the development server:
 
-   For npm:
+For npm:
 
 ```bash
 npm run dev
