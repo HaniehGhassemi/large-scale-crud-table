@@ -9,7 +9,7 @@ import styles from './CreateNewProduct.module.scss';
 import { SelectOption } from '@/shared/types/types';
 import { fetchGetAllCategories } from '@/api/categories/categories';
 import Select from '@/components/Fields/Select/Select';
-import { saveProducts } from '@/db/ProductsDB';
+import { createProduct, saveProducts } from '@/db/ProductsDB';
 import { productValidationSchema } from '@/shared/validations/ProductValidations';
 
 interface CreateNewProductProps {
@@ -50,23 +50,18 @@ const CreateNewProduct: React.FC<CreateNewProductProps> = ({ submit }) => {
     onSubmit: async (values) => {
       setIsBtnLoading(true);
 
-      const { data, error } = await fetchCreateNewProducts({
+      const dbResult = await createProduct({
         ...values,
       });
 
-      if (!data || error) {
+      if (!dbResult) {
         setIsBtnLoading(false);
+        toast.success('Error creating product');
         return;
       }
 
-      try {
-        await saveProducts([data.data]);
-        toast.success(`${values.title} created successfully`);
-      } catch {
-        toast.error('Failed to create product');
-      }
-
       setIsBtnLoading(false);
+      toast.success(`${values.title} created successfully`);
       submit();
     },
   });
