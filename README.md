@@ -40,9 +40,10 @@ If you want to run the project using Docker, all you need is Docker installed. F
 ```
 
 2. **Run the Project with Docker:**
+  After pulling the image, you can run the project inside a container:
 
 ```bash
- After pulling the image, you can run the project inside a container:
+docker run -p 5173:5173 hnigh/large-scale-crud-table:initial
 ```
 
 This command will create a container named my-crud-app and map port 5173 on your system to port 5173 inside the container.
